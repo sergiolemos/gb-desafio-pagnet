@@ -1,0 +1,3 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/sergiolemos/gb-desafio-pagnet-backend.git
