@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15.3
+    ports:
+      - "5433:5432"
+  environment:
+    - POSTGRES_DB=pagnet
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+
+spring-app:
+  image: backend-pagnet:latest
+  ports:
+    - "8080:8080"
+  enviroment:
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5433/pagnet
+  depends_on:
+    - postgres-db
+  
+spa-app:
+  build:
+    context: ./frontend
+    dockerfile: Dockerfile
+  ports:
+    - "9090:9090"
+  depends_on:
+    - spring-app
+
+
+  
